@@ -12,6 +12,7 @@
 		87FA93552051CF2600CA6C40 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FA93542051CF2600CA6C40 /* Launch Screen.storyboard */; };
 		87FA93582051CF9100CA6C40 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA93562051CF9100CA6C40 /* NoteViewController.swift */; };
 		87FA93592051CF9100CA6C40 /* NoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87FA93572051CF9100CA6C40 /* NoteViewController.xib */; };
+		87FA935B2051F0E400CA6C40 /* NoteViewByCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA935A2051F0E400CA6C40 /* NoteViewByCodeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		87FA93542051CF2600CA6C40 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		87FA93562051CF9100CA6C40 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		87FA93572051CF9100CA6C40 /* NoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteViewController.xib; sourceTree = "<group>"; };
+		87FA935A2051F0E400CA6C40 /* NoteViewByCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewByCodeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				87FA934E2051CEA600CA6C40 /* Info.plist */,
 				87FA93542051CF2600CA6C40 /* Launch Screen.storyboard */,
 				87FA93562051CF9100CA6C40 /* NoteViewController.swift */,
+				87FA935A2051F0E400CA6C40 /* NoteViewByCodeController.swift */,
 				87FA93572051CF9100CA6C40 /* NoteViewController.xib */,
 			);
 			path = Everpobre;
@@ -138,6 +141,7 @@
 			files = (
 				87FA93582051CF9100CA6C40 /* NoteViewController.swift in Sources */,
 				87FA93432051CEA600CA6C40 /* AppDelegate.swift in Sources */,
+				87FA935B2051F0E400CA6C40 /* NoteViewByCodeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

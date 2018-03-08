@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow()
         
-        let noteVC = NoteViewController()
+        let noteVC = NoteViewByCodeController() //NoteViewController()
         
         window?.rootViewController = noteVC
         
