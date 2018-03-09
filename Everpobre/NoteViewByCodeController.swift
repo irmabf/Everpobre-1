@@ -15,6 +15,8 @@ class NoteViewByCodeController: UIViewController {
     let titleTextField = UITextField()
     let noteTextView = UITextView()
     
+    let imageView = UIImageView()
+    
     override func loadView() {
         
         let backView = UIView()
@@ -37,6 +39,11 @@ class NoteViewByCodeController: UIViewController {
         noteTextView.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
         
         backView.addSubview(noteTextView)
+        
+        // Configure imageView
+        imageView.backgroundColor = .red
+        backView.addSubview(imageView)
+        
         
         // MARK: Autolayout.
         
@@ -62,14 +69,16 @@ class NoteViewByCodeController: UIViewController {
         
         constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:[dateLabel]-10-[noteTextView]-10-|", options: [], metrics: nil, views: viewDict))
         
-//        constraints.append(NSLayoutConstraint(item: dateLabel, attribute: .top, relatedBy: .equal, toItem: backView.s, attribute: .top, multiplier: 1, constant: 20))
+       constraints.append(NSLayoutConstraint(item: dateLabel, attribute: .top, relatedBy: .equal, toItem: backView.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 10))
+        
+      
         
         // Option A
-   //     dateLabel.topAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+     // dateLabel.topAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         
         // Option B, less to explain.
         
-        constraints.append(NSLayoutConstraint(item: dateLabel, attribute: .top, relatedBy: .equal, toItem: backView.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 10))
+    //    constraints.append(NSLayoutConstraint(item: dateLabel, attribute: .top, relatedBy: .equal, toItem: backView.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 10))
         
         constraints.append(NSLayoutConstraint(item: titleTextField, attribute: .lastBaseline, relatedBy: .equal, toItem: dateLabel, attribute: .lastBaseline, multiplier: 1, constant: 0))
         
@@ -84,17 +93,31 @@ class NoteViewByCodeController: UIViewController {
     
     
     
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(closeKeyboard))
+        swipeGesture.direction = .down
+        
+        view.addGestureRecognizer(swipeGesture)
+        
+        
     }
+    
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    @objc func closeKeyboard()
+    {
+        if noteTextView.isFirstResponder
+        {
+            noteTextView.resignFirstResponder()
+        }
+        else if titleTextField.isFirstResponder
+        {
+            titleTextField.resignFirstResponder()
+        }
     }
     
 
