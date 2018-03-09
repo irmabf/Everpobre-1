@@ -22,6 +22,8 @@ class NoteViewByCodeController: UIViewController {
     var leftImgConstraint: NSLayoutConstraint!
     var rightImgConstraint: NSLayoutConstraint!
     
+    var relativePoint: CGPoint!
+    
     override func loadView() {
         
         let backView = UIView()
@@ -134,16 +136,51 @@ class NoteViewByCodeController: UIViewController {
         
         imageView.isUserInteractionEnabled = true
         
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(moveImage))
+//        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(moveImage))
+//
+//        doubleTapGesture.numberOfTapsRequired = 2
+//
+//        imageView.addGestureRecognizer(doubleTapGesture)
         
-        doubleTapGesture.numberOfTapsRequired = 2
+        let moveViewGesture = UILongPressGestureRecognizer(target: self, action: #selector(userMoveImage))
         
-        imageView.addGestureRecognizer(doubleTapGesture)
+        imageView.addGestureRecognizer(moveViewGesture)
         
     }
     
+    @objc func userMoveImage(longPressGesture:UILongPressGestureRecognizer)
+    {
+        switch longPressGesture.state {
+        case .began:
+            closeKeyboard()
+            relativePoint = longPressGesture.location(in: longPressGesture.view)
+            UIView.animate(withDuration: 0.1, animations: {
+                self.imageView.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+            })
+            
+        case .changed:
+            let location = longPressGesture.location(in: noteTextView)
+            
+            leftImgConstraint.constant = location.x - relativePoint.x
+            topImgConstraint.constant = location.y - relativePoint.y
+            
+        case .ended, .cancelled:
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                self.imageView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+            })
+     
+        default:
+            break
+        }
+        
+    }
+    
+    
     @objc func moveImage(tapGesture:UITapGestureRecognizer)
     {
+     
+        
         if topImgConstraint.isActive
         {
             if leftImgConstraint.isActive
@@ -180,6 +217,8 @@ class NoteViewByCodeController: UIViewController {
 
     @objc func closeKeyboard()
     {
+
+        
         if noteTextView.isFirstResponder
         {
             noteTextView.resignFirstResponder()

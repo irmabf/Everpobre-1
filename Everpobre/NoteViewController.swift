@@ -12,6 +12,8 @@ class NoteViewController: UIViewController {
 
     @IBOutlet weak var dateLabel: UILabel!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

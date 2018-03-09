@@ -13,7 +13,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteViewController" customModule="Everpobre" customModuleProvider="target">
             <connections>
+                <outlet property="constraint" destination="1n7-bY-tg1" id="TPO-xZ-O5p"/>
                 <outlet property="dateLabel" destination="NK4-qo-FHi" id="sN2-3T-I5X"/>
+                <outlet property="topSafeAreaConstraint" destination="nmh-bL-ltC" id="uZY-da-Tjx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
