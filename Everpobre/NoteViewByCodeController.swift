@@ -170,6 +170,10 @@ class NoteViewByCodeController: UIViewController {
                 leftImgConstraint.isActive = true
             }
         }
+        
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
     }
     
 
@@ -187,14 +191,13 @@ class NoteViewByCodeController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews()
+    {
+        var rect = view.convert(imageView.frame, to: noteTextView)
+        rect = rect.insetBy(dx: -15, dy: -15)
+        
+        let paths = UIBezierPath(rect: rect)
+        noteTextView.textContainer.exclusionPaths = [paths]
     }
-    */
 
 }
