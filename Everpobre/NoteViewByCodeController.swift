@@ -17,6 +17,11 @@ class NoteViewByCodeController: UIViewController {
     
     let imageView = UIImageView()
     
+    var topImgConstraint: NSLayoutConstraint!
+    var bottomImgConstraint: NSLayoutConstraint!
+    var leftImgConstraint: NSLayoutConstraint!
+    var rightImgConstraint: NSLayoutConstraint!
+    
     override func loadView() {
         
         let backView = UIView()
@@ -52,6 +57,8 @@ class NoteViewByCodeController: UIViewController {
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         expirationDate.translatesAutoresizingMaskIntoConstraints = false
         
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         /*
         class func constraints(withVisualFormat format: String,
                                options opts: NSLayoutFormatOptions = [],
@@ -84,7 +91,28 @@ class NoteViewByCodeController: UIViewController {
         
         constraints.append(NSLayoutConstraint(item: expirationDate, attribute: .lastBaseline, relatedBy: .equal, toItem: dateLabel, attribute: .lastBaseline, multiplier: 1, constant: 0))
         
+        // Img View Constraint.
+        
+        topImgConstraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: noteTextView, attribute: .top, multiplier: 1, constant: 20)
+        
+        bottomImgConstraint = NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: noteTextView, attribute: .bottom, multiplier: 1, constant: -20)
+        
+        leftImgConstraint = NSLayoutConstraint(item: imageView, attribute: .left, relatedBy: .equal, toItem: noteTextView, attribute: .left, multiplier: 1, constant: 20)
+        
+        rightImgConstraint = NSLayoutConstraint(item: imageView, attribute: .right, relatedBy: .equal, toItem: noteTextView, attribute: .right, multiplier: 1, constant: -20)
+        
+        var imgConstraints = [NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 100)]
+        
+        imgConstraints.append(NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 150))
+        
+        imgConstraints.append(contentsOf: [topImgConstraint,bottomImgConstraint,leftImgConstraint,rightImgConstraint])
+        
+        
         backView.addConstraints(constraints)
+        backView.addConstraints(imgConstraints)
+        
+        NSLayoutConstraint.deactivate([bottomImgConstraint,rightImgConstraint])
+        
         
         
         self.view = backView
@@ -96,6 +124,7 @@ class NoteViewByCodeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(closeKeyboard))
@@ -103,7 +132,44 @@ class NoteViewByCodeController: UIViewController {
         
         view.addGestureRecognizer(swipeGesture)
         
+        imageView.isUserInteractionEnabled = true
         
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(moveImage))
+        
+        doubleTapGesture.numberOfTapsRequired = 2
+        
+        imageView.addGestureRecognizer(doubleTapGesture)
+        
+    }
+    
+    @objc func moveImage(tapGesture:UITapGestureRecognizer)
+    {
+        if topImgConstraint.isActive
+        {
+            if leftImgConstraint.isActive
+            {
+               leftImgConstraint.isActive = false
+               rightImgConstraint.isActive = true
+            }
+            else
+            {
+                topImgConstraint.isActive = false
+                bottomImgConstraint.isActive = true
+            }
+        }
+        else
+        {
+            if leftImgConstraint.isActive
+            {
+                bottomImgConstraint.isActive = false
+                topImgConstraint.isActive = true
+            }
+            else
+            {
+                rightImgConstraint.isActive = false
+                leftImgConstraint.isActive = true
+            }
+        }
     }
     
 
