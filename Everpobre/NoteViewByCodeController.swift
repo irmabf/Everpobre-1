@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteViewByCodeController: UIViewController {
+class NoteViewByCodeController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let dateLabel = UILabel()
     let expirationDate = UILabel()
@@ -127,8 +127,21 @@ class NoteViewByCodeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        // Do any additional setup after loading the view.
+        // MARK: Navigation Controller
+        navigationController?.isToolbarHidden = false
+        
+        let photoBarButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(catchPhoto))
+        
+        let fixSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let mapBarButton = UIBarButtonItem(title: "Map", style: .done, target: self, action: #selector(addLocation))
+        
+          self.setToolbarItems([photoBarButton,flexible,mapBarButton], animated: false)
+  
+        // MARK: Gestures
+        
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(closeKeyboard))
         swipeGesture.direction = .down
         
@@ -179,8 +192,7 @@ class NoteViewByCodeController: UIViewController {
     
     @objc func moveImage(tapGesture:UITapGestureRecognizer)
     {
-     
-        
+  
         if topImgConstraint.isActive
         {
             if leftImgConstraint.isActive
@@ -237,6 +249,54 @@ class NoteViewByCodeController: UIViewController {
         
         let paths = UIBezierPath(rect: rect)
         noteTextView.textContainer.exclusionPaths = [paths]
+    }
+    
+    // MARK: Toolbar Buttons actions
+    
+    @objc func catchPhoto()
+    {
+        let actionSheetAlert = UIAlertController(title: NSLocalizedString("Add photo", comment: "Add photo"), message: nil, preferredStyle: .actionSheet)
+        
+        let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+        
+        let useCamera = UIAlertAction(title: "Camera", style: .default) { (alertAction) in
+             imagePicker.sourceType = .camera
+             self.present(imagePicker, animated: true, completion: nil)
+        }
+        
+        let usePhotoLibrary = UIAlertAction(title: "Photo Library", style: .default) { (alertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .destructive, handler: nil)
+        
+        actionSheetAlert.addAction(useCamera)
+        actionSheetAlert.addAction(usePhotoLibrary)
+        actionSheetAlert.addAction(cancel)
+       
+ 
+        
+        present(actionSheetAlert, animated: true, completion: nil)
+    }
+    
+    @objc func addLocation()
+    {
+        
+    }
+    
+    
+    
+    
+    // MARK: Image Picker Delegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        imageView.image = image
+        
+        picker.dismiss(animated: true, completion: nil)
+        
     }
 
 }

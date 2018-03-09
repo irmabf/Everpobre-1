@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let noteVC = NoteViewByCodeController() //NoteViewController()
         
-        window?.rootViewController = noteVC
+        let navController = UINavigationController(rootViewController: noteVC)
+        
+        window?.rootViewController = navController
         
         window?.makeKeyAndVisible()
         
