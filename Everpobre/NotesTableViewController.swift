@@ -7,22 +7,64 @@
 //
 
 import UIKit
+import CoreData
 
 class NotesTableViewController: UITableViewController {
     
     var noteList:[Note] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewNote))
         
+        
+        // Fetch Request.
+        let viewMOC = DataManager.sharedManager.persistentContainer.viewContext
+        
+    
+//        // 1.- Creamos el objeto
+//        let fetchRequest =  NSFetchRequest<Note>()
+//
+//        // 2.- Que entidad es de la que queremos objeto.
+//        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Note", in: viewMOC)
+        
+        let fetchRequest = Note.fetchNoteRequest()
+        
+   //     let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
+        
+ 
+
+        
+        // 3.- (Opcional) Indicamos orden.
+        let sortByDate = NSSortDescriptor(key: "createdAtTI", ascending: true)
+        let sortByTitle = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortByDate,sortByTitle]
+        
+        // 4.- (Opcional) Filtrado.
+        let created24H = Date().timeIntervalSince1970 - 24 * 3600
+        let predicate = NSPredicate(format: "createdAtTI >= %f", created24H)
+        fetchRequest.predicate = predicate
+        
+        
+        
+        // 5.- Ejecutamos la request.
+        try! noteList = viewMOC.fetch(fetchRequest)
+        
+        
+        
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        
     }
+    
+
 
     // MARK: - Table view data source
 
@@ -53,6 +95,19 @@ class NotesTableViewController: UITableViewController {
     }
     
     @objc func addNewNote()  {
+        
+        
+        // Tradicionalmente.
+        let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: DataManager.sharedManager.persistentContainer.viewContext) as! Note
+        
+        note.title = "Nueva nota"
+        note.createdAtTI = Date().timeIntervalSince1970
+        
+        try! DataManager.sharedManager.persistentContainer.viewContext.save()
+        
+        noteList.append(note)
+        
+        tableView.reloadData()
         
     }
 
