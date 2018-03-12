@@ -24,6 +24,12 @@ class NoteViewByCodeController: UIViewController, UIImagePickerControllerDelegat
     
     var relativePoint: CGPoint!
     
+    var note:Note?
+    
+
+    
+    
+    
     override func loadView() {
         
         let backView = UIView()
@@ -132,7 +138,7 @@ class NoteViewByCodeController: UIViewController, UIImagePickerControllerDelegat
         
         let photoBarButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(catchPhoto))
         
-        let fixSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+    //   let fixSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
@@ -158,6 +164,14 @@ class NoteViewByCodeController: UIViewController, UIImagePickerControllerDelegat
         let moveViewGesture = UILongPressGestureRecognizer(target: self, action: #selector(userMoveImage))
         
         imageView.addGestureRecognizer(moveViewGesture)
+        
+        // MARK: About Note
+        
+        if note != nil {
+            
+            titleTextField.text = note?.title
+            noteTextView.text = note?.content
+        }
         
     }
     
