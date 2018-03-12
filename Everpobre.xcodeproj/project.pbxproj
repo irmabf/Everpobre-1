@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8771F1E22057181F00F44341 /* Everpobre.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8771F1E02057181F00F44341 /* Everpobre.xcdatamodeld */; };
 		8771F1E4205720A000F44341 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8771F1E3205720A000F44341 /* DataManager.swift */; };
+		8771F20920572F2000F44341 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8771F20820572F2000F44341 /* NotesTableViewController.swift */; };
 		87FA93432051CEA600CA6C40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA93422051CEA600CA6C40 /* AppDelegate.swift */; };
 		87FA934A2051CEA600CA6C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87FA93492051CEA600CA6C40 /* Assets.xcassets */; };
 		87FA93552051CF2600CA6C40 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FA93542051CF2600CA6C40 /* Launch Screen.storyboard */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		8771F1E12057181F00F44341 /* Everpobre.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Everpobre.xcdatamodel; sourceTree = "<group>"; };
 		8771F1E3205720A000F44341 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		8771F20820572F2000F44341 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		87FA933F2051CEA600CA6C40 /* Everpobre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everpobre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87FA93422051CEA600CA6C40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87FA93492051CEA600CA6C40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				87FA93542051CF2600CA6C40 /* Launch Screen.storyboard */,
 				87FA93562051CF9100CA6C40 /* NoteViewController.swift */,
 				87FA935A2051F0E400CA6C40 /* NoteViewByCodeController.swift */,
+				8771F20820572F2000F44341 /* NotesTableViewController.swift */,
 				87FA93572051CF9100CA6C40 /* NoteViewController.xib */,
 			);
 			path = Everpobre;
@@ -158,6 +161,7 @@
 				87FA93582051CF9100CA6C40 /* NoteViewController.swift in Sources */,
 				87FA93432051CEA600CA6C40 /* AppDelegate.swift in Sources */,
 				87FA935B2051F0E400CA6C40 /* NoteViewByCodeController.swift in Sources */,
+				8771F20920572F2000F44341 /* NotesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
