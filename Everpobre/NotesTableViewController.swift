@@ -13,6 +13,8 @@ class NotesTableViewController: UITableViewController {
     
     var noteList:[Note] = []
     
+    var observer : NSObjectProtocol?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,17 +55,19 @@ class NotesTableViewController: UITableViewController {
         try! noteList = viewMOC.fetch(fetchRequest)
         
         
-        
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name.NSManagedObjectContextDidSave, object: nil, queue: OperationQueue.main, using: { (notification) in
+    
+             self.tableView.reloadData()
+        })
         
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-        
+    deinit {
+        if let obs = observer
+        {
+        NotificationCenter.default.removeObserver(obs)
+        }
     }
-    
 
 
     // MARK: - Table view data source
