@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class NotesTableViewController: UITableViewController {
+class NotesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    var noteList:[Note] = []
     
-    var observer : NSObjectProtocol?
+    var fetchedResultController : NSFetchedResultsController<Note>!
+    
     
 
     override func viewDidLoad() {
@@ -32,9 +32,9 @@ class NotesTableViewController: UITableViewController {
 //        // 2.- Que entidad es de la que queremos objeto.
 //        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Note", in: viewMOC)
         
-        let fetchRequest = Note.fetchNoteRequest()
+     //   let fetchRequest = Note.fetchNoteRequest()
         
-   //     let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
+        let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
         
  
 
@@ -49,33 +49,27 @@ class NotesTableViewController: UITableViewController {
         let predicate = NSPredicate(format: "createdAtTI >= %f", created24H)
         fetchRequest.predicate = predicate
         
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: viewMOC, sectionNameKeyPath: nil, cacheName: nil)
         
+        try! fetchedResultController.performFetch()
         
-        // 5.- Ejecutamos la request.
-        try! noteList = viewMOC.fetch(fetchRequest)
-        
-        
-        observer = NotificationCenter.default.addObserver(forName: Notification.Name.NSManagedObjectContextDidSave, object: nil, queue: OperationQueue.main, using: { (notification) in
-    
-             self.tableView.reloadData()
-        })
+        fetchedResultController.delegate = self
+
         
     }
 
-    deinit {
-        if let obs = observer
-        {
-        NotificationCenter.default.removeObserver(obs)
-        }
-    }
 
 
     // MARK: - Table view data source
-
+    override func numberOfSections(in tableView: UITableView) -> Int {
+      return fetchedResultController.sections!.count
+    }
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
-        return noteList.count
+        return fetchedResultController.sections![section].numberOfObjects
+        
     }
 
   
@@ -86,7 +80,7 @@ class NotesTableViewController: UITableViewController {
             cell = UITableViewCell(style: .default, reuseIdentifier: "reuseIdentifier")
         }
 
-        cell?.textLabel?.text = noteList[indexPath.row].title
+        cell?.textLabel?.text = fetchedResultController.object(at: indexPath).title
 
         return cell!
     }
@@ -94,25 +88,36 @@ class NotesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let noteViewController = NoteViewByCodeController()
-        noteViewController.note = noteList[indexPath.row]
+        noteViewController.note = fetchedResultController.object(at: indexPath)
         navigationController?.pushViewController(noteViewController, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return fetchedResultController.sections![section].name
     }
     
     @objc func addNewNote()  {
         
-        
         // Tradicionalmente.
-        let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: DataManager.sharedManager.persistentContainer.viewContext) as! Note
+        let privateMOC = DataManager.sharedManager.persistentContainer.newBackgroundContext()
         
-        note.title = "Nueva nota"
-        note.createdAtTI = Date().timeIntervalSince1970
+        privateMOC.perform {
+           
+        let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: privateMOC) as! Note
         
-        try! DataManager.sharedManager.persistentContainer.viewContext.save()
+            let dict = ["main_title":"Nueva nota from KVC","createdAtTI":Date().timeIntervalSince1970] as [String : Any]
         
-        noteList.append(note)
+//        note.title = "Nueva nota"
+//        note.createdAtTI = Date().timeIntervalSince1970
+            
+           note.setValuesForKeys(dict)
         
+        try! privateMOC.save()
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()
-        
     }
 
 }

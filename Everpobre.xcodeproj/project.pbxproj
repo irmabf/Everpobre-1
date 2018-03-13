@@ -10,6 +10,7 @@
 		8771F1E22057181F00F44341 /* Everpobre.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8771F1E02057181F00F44341 /* Everpobre.xcdatamodeld */; };
 		8771F1E4205720A000F44341 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8771F1E3205720A000F44341 /* DataManager.swift */; };
 		8771F20920572F2000F44341 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8771F20820572F2000F44341 /* NotesTableViewController.swift */; };
+		87CB577A205871C800581CFA /* ManagedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CB5779205871C800581CFA /* ManagedObjects.swift */; };
 		87FA93432051CEA600CA6C40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FA93422051CEA600CA6C40 /* AppDelegate.swift */; };
 		87FA934A2051CEA600CA6C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87FA93492051CEA600CA6C40 /* Assets.xcassets */; };
 		87FA93552051CF2600CA6C40 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FA93542051CF2600CA6C40 /* Launch Screen.storyboard */; };
@@ -22,6 +23,7 @@
 		8771F1E12057181F00F44341 /* Everpobre.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Everpobre.xcdatamodel; sourceTree = "<group>"; };
 		8771F1E3205720A000F44341 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		8771F20820572F2000F44341 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
+		87CB5779205871C800581CFA /* ManagedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjects.swift; sourceTree = "<group>"; };
 		87FA933F2051CEA600CA6C40 /* Everpobre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everpobre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87FA93422051CEA600CA6C40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87FA93492051CEA600CA6C40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,10 +48,19 @@
 		8771F1DF2057176200F44341 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				87CB5778205871A600581CFA /* ManagedObject */,
 				8771F1E02057181F00F44341 /* Everpobre.xcdatamodeld */,
 				8771F1E3205720A000F44341 /* DataManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		87CB5778205871A600581CFA /* ManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				87CB5779205871C800581CFA /* ManagedObjects.swift */,
+			);
+			path = ManagedObject;
 			sourceTree = "<group>";
 		};
 		87FA93362051CEA600CA6C40 = {
@@ -157,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8771F1E22057181F00F44341 /* Everpobre.xcdatamodeld in Sources */,
+				87CB577A205871C800581CFA /* ManagedObjects.swift in Sources */,
 				8771F1E4205720A000F44341 /* DataManager.swift in Sources */,
 				87FA93582051CF9100CA6C40 /* NoteViewController.swift in Sources */,
 				87FA93432051CEA600CA6C40 /* AppDelegate.swift in Sources */,
