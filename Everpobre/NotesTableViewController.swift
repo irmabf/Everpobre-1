@@ -36,9 +36,6 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         
         let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
         
- 
-
-        
         // 3.- (Opcional) Indicamos orden.
         let sortByDate = NSSortDescriptor(key: "createdAtTI", ascending: true)
         let sortByTitle = NSSortDescriptor(key: "title", ascending: true)
@@ -48,6 +45,8 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
         let created24H = Date().timeIntervalSince1970 - 24 * 3600
         let predicate = NSPredicate(format: "createdAtTI >= %f", created24H)
         fetchRequest.predicate = predicate
+        
+        fetchRequest.fetchBatchSize = 25
         
         fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: viewMOC, sectionNameKeyPath: nil, cacheName: nil)
         
